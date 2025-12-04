@@ -15,7 +15,10 @@ class SupervisorOptionsTest extends IntegrationTest
 
     public function test_dynamic_property_warning_from_worker_pausable()
     {
-        // Set the static pausable property on the worker instance
+        if (version_compare($this->app->version(), '12.41.0', '<')) {
+            $this->markTestSkipped('This test is not valid for Laravel < 12.41.0.');
+        }
+
         $workerClass = get_class($this->worker());
         if(property_exists($workerClass, '$pausable')) {
             $workerClass::$pausable = false;
