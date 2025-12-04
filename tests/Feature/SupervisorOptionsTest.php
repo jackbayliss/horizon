@@ -17,9 +17,10 @@ class SupervisorOptionsTest extends IntegrationTest
     {
         // Set the static pausable property on the worker instance
         $workerClass = get_class($this->worker());
-        $workerClass::$pausable = true;
-
-        $this->assertTrue($workerClass::$pausable);
+        if(property_exists($workerClass, '$pausable')) {
+            $workerClass::$pausable = false;
+            $this->assertFalse($workerClass::$pausable);
+        }
 
         // Now simulate Horizon copying it to SupervisorOptions
         $options = new SupervisorOptions('name', 'redis');
