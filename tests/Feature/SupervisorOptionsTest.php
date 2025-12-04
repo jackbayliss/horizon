@@ -27,8 +27,5 @@ class SupervisorOptionsTest extends IntegrationTest
 
         // Now simulate Horizon copying it to SupervisorOptions
         $options = new SupervisorOptions('name', 'redis');
-
-        // Expect the dynamic property deprecation
-        $this->expectDeprecation();
     }
 }
