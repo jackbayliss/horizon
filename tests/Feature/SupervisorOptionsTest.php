@@ -12,4 +12,19 @@ class SupervisorOptionsTest extends IntegrationTest
         $options = new SupervisorOptions('name', 'redis');
         $this->assertSame('default', $options->queue);
     }
+
+    public function test_dynamic_property_warning_from_worker_pausable()
+    {
+        // Set the static pausable property on the worker instance
+        $workerClass = get_class($this->worker);
+        $workerClass::$pausable = true;
+
+        $this->assertTrue($workerClass::$pausable);
+
+        // Now simulate Horizon copying it to SupervisorOptions
+        $options = new SupervisorOptions('name', 'redis');
+
+        // Expect the dynamic property deprecation
+        $this->expectDeprecation();
+    }
 }

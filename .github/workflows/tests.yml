@@ -64,4 +64,4 @@ jobs:
           composer update --prefer-dist --no-interaction --no-progress --with="illuminate/contracts:^${{ matrix.laravel }}"
 
       - name: Execute tests
-        run: vendor/bin/phpunit --filter SupervisorOptionsPausableTest --stop-on-failure ${{ matrix.laravel >= 10 && '--fail-on-deprecation' || '' }}
+        run: vendor/bin/phpunit --filter SupervisorOptionsTest --stop-on-failure ${{ matrix.laravel >= 10 && '--fail-on-deprecation' || '' }}
